@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  app-native-java11:
+    build:
+      dockerfile: Dockerfile.deploy.native
+      context: .
+    container_name: vm-build-native-java11
+    ports:
+      - "8080:8080"
+#    volumes:
+#      - .:/java/src/

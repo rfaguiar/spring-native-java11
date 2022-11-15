@@ -1,0 +1,10 @@
+#FROM ubuntu:20.04
+FROM debian:unstable-slim
+
+WORKDIR /java/app
+
+COPY build/native/nativeCompile/native-java11 /java/app/application
+
+EXPOSE 8080
+
+CMD ["./application"]

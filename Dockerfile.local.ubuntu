@@ -1,0 +1,22 @@
+#FROM ubuntu:20.04
+FROM debian:unstable-slim
+
+WORKDIR /java/app
+
+# For SDKMAN to work we need unzip, zip & curl
+RUN apt-get update -y && apt-get -qq install -y build-essential libz-dev zlib1g-dev curl unzip zip
+
+# configure source command
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+# Install SDKMAN
+RUN curl -s "https://get.sdkman.io" | bash && \
+    source "$HOME/.sdkman/bin/sdkman-init.sh" && \
+    # Install Oracle GraalVM
+    sdk install java 22.1.0.r11-grl && \
+    # Install GraalVM Native Image
+    gu install native-image
+
+COPY . .
+
+CMD ["tail", "-f", "/dev/null"]
